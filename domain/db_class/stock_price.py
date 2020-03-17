@@ -14,16 +14,16 @@ class StockPrice(Base):
     High = Column(Float)
     Low = Column(Float)
     Close = Column(Float)
-    Volumn = Column(Float)
+    Volume = Column(Float)
     stock_id = Column(Integer, ForeignKey(Stock.id))
 
-    def __init__(self, Date, Open, High, Low, Close, Volumn, stock_id):
+    def __init__(self, Date, Open, High, Low, Close, Volume, stock_id):
         self.Date = Date
         self.Open = Open
         self.High = High
         self.Low = Low
         self.Close = Close
-        self.Volumn = Volumn
+        self.Volume = Volume
         self.stock_id = stock_id
 
     def __repr__(self):

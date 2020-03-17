@@ -44,6 +44,10 @@ class DataBase(metaclass=Singleton):
         result = self.session.query(Stock).filter(Stock.code == code)
         return result.all()
 
+    def stock_select_all(self):
+        result = self.session.query(Stock).all()
+        return result
+
     def close(self):
         self.session.close()
 

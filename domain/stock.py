@@ -23,6 +23,9 @@ class Stock:
         code = self.get_code(code_df, name)
         print(code)
         # 수정주가를 반영
+        return self.get_stock_from_pdr_yahoo(code, start, end)
+
+    def get_stock_from_pdr_yahoo(self, code, start, end):
         df = pdr.get_data_yahoo(code, start, end, adjust_price=True)
         return df
 
