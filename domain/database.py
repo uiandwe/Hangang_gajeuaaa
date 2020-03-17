@@ -40,6 +40,10 @@ class DataBase(metaclass=Singleton):
                 print(row.__dict__)
         pass
 
+    def stock_select_code(self, code):
+        result = self.session.query(Stock).filter(Stock.code == code)
+        return result.all()
+
     def close(self):
         self.session.close()
 

@@ -9,11 +9,15 @@ def get_kospi_list():
 
 
 def save_stock_company_info(insert_data):
-    return DataBase().insert(insert_data)
+    return DataBase(echo=False).insert(insert_data)
+
+
+def get_stock_company_from_code(code):
+    return DataBase(echo=False).stock_select_code(code)
 
 
 def database_close():
-    return DataBase().close()
+    return DataBase(echo=False).close()
 
 
 def set_stock_model(obj):
