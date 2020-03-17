@@ -10,12 +10,14 @@ class Stock(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     code = Column(String)
-    exchange = Column(String)
+    exchange = Column(String) # kospi / kosdaq
+    product = Column(String) # 주요 제품
 
-    def __init__(self, name, code, exchange):
+    def __init__(self, name, code, exchange, product):
         self.name = name
         self.code = code
         self.exchange = exchange
+        self.product = product
 
     def __repr__(self):
-        return "<User('%s', '%s', '%s')>" % (self.name, self.code, self.exchange)
+        return "<Stock('%s', '%s', '%s, %s')>" % (self.name, self.code, self.exchange, self.product)

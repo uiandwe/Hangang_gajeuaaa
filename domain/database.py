@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
+import os
+
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 from domain.db_class.stock import Stock
 from domain.db_class.stock_price import StockPrice
-import os
-from sqlalchemy.orm import sessionmaker
+from domain.singleton import Singleton
 
 
-class DataBase:
+class DataBase(metaclass=Singleton):
     now_path = os.path.dirname(os.path.realpath(__file__))
 
     def __init__(self, echo=True):
