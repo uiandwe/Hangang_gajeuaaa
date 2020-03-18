@@ -3,6 +3,7 @@ import pandas as pd
 import pandas_datareader as pdr
 import datetime
 from matplotlib import pyplot as plt
+import FinanceDataReader as fdr
 
 
 class Stock:
@@ -26,7 +27,11 @@ class Stock:
         return self.get_stock_from_pdr_yahoo(code, start, end)
 
     def get_stock_from_pdr_yahoo(self, code, start, end):
-        df = pdr.get_data_yahoo(code, start, end, adjust_price=True)
+        try:
+            df = pdr.get_data_yahoo(code, start, end, adjust_price=True)
+        except Exception as e:
+            print(e)
+            return None
         return df
 
     def get_code(self, df, name):
@@ -57,12 +62,40 @@ class Stock:
         df.종목코드 = df.종목코드.map('{:06d}.KQ'.format)
         return df
 
-if __name__ == '__main__':
-    start = datetime.datetime(2015, 1, 1)
-    end = datetime.date(2019, 12, 31)
-    name = '삼성전자'
+    def get_stock_code_kr(self):
+        df_krx = fdr.StockListing('KRX')
+        return df_krx
 
-    stock = Stock()
-    df = stock.get_stock(name, start, end)
-    df.plot()
+    def get_stock_from_fdr(self, code, start=None, end=None):
+        """
+        '101380', '2020-03-01', '2020-03-18'
+        """
+        try:
+            df = fdr.DataReader(code, start, end)
+        except Exception as e:
+            print(e)
+            return None
+        return df
+
+
+if __name__ == '__main__':
+    # start = datetime.datetime(2015, 1, 1)
+    # end = datetime.date(2019, 12, 31)
+    # name = '거북선2호'
+    #
+    # stock = Stock()
+    # df = stock.get_stock(name, start, end)
+    # df.plot()
+    # plt.show()
+
+    # 단일 종목
+    df = fdr.DataReader('101380', '2020-03-01', '2020-03-18')
+    try:
+        df = fdr.DataReader('00104K')
+    except Exception as e:
+        print(e)
+
+    # 코스피 지수
+    # df = fdr.DataReader('KS11')
+    df['Close'].plot()
     plt.show()
