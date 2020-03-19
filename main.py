@@ -1,9 +1,16 @@
 # -*- coding: utf-8 -*-
-from factory import get_company_from_name_to_data
+from factory import get_company_from_name_to_data, valid_date
 from matplotlib import pyplot as plt
 
+
 if __name__ == '__main__':
-    df = get_company_from_name_to_data("GS홈쇼핑", '2018')
+    start = "2018"
+    start = "201812"
+    start = "20181231"
+
+    start = valid_date(start)
+
+    df = get_company_from_name_to_data("GS홈쇼핑", start)
 
     df['Close'].plot()
     plt.show()

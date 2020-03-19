@@ -3,7 +3,8 @@ from domain.database import DataBase
 from domain.stock import Stock
 from domain.db_class.stock_price import StockPrice
 from domain.db_class.stock import Stock as StockModel
-from domain.controller.data_controller import DataController
+from controller.data_controller import DataController
+from domain.valid import Valid
 
 
 def get_kospi_list():
@@ -49,3 +50,7 @@ def set_stock_price_model(obj):
 def get_company_from_name_to_data(company_name, start=None, end=None):
     return DataController(get_stock_company_from_name=get_stock_company_from_name, get_stock=get_stock).\
         get_company_name_code(company_name, start, end)
+
+
+def valid_date(str_date):
+    return Valid().date_format(str_date)
