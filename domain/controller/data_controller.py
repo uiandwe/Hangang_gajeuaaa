@@ -62,13 +62,9 @@ class DataController:
         self.database_close()
         print("error_stock", error_stock)
 
-    # 지정된 날짜 주식 검색, start가 None일 경우 오늘 날짜로 셋팅
-    def save_stock_from_date(self, code, start=None):
-        pass
-
-    def get_company_name_code(self, company_name):
+    def get_company_name_code(self, company_name, start=None, end=None):
         row_data = self.get_stock_company_from_name(company_name)
 
-        df = self.get_stock(row_data[0].code)
+        df = self.get_stock(row_data[0].code, start, end)
 
         return df
