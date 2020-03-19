@@ -1,13 +1,23 @@
 # -*- coding: utf-8 -*-
-from factory import get_korea_stock_list, set_stock_model, save_stock_company_info, database_close, \
-    get_stock_company_from_code, get_stock_company_all, get_stock, set_stock_price_model
 import pandas as pd
 from datetime import datetime
 
 
 class DataController:
+
+    def __init__(self, get_stock_company_from_name=None, get_korea_stock_list=None, set_stock_model=None,
+                 database_close=None, get_stock_company_all=None, get_stock=None, set_stock_price_model=None):
+        self.get_stock_company_from_name = get_stock_company_from_name
+        self.get_korea_stock_list = get_korea_stock_list
+        self.set_stock_model = set_stock_model
+        self.database_close = database_close
+        self.get_stock_company_all = get_stock_company_all
+        self.get_stock = get_stock
+        self.set_stock_price_model = set_stock_price_model
+
+
     def save_stock_company_list(self):
-        stock_company_list = get_korea_stock_list()
+        stock_company_list = self.get_korea_stock_list()
 
         for i, row in stock_company_list.iterrows():
             listing_date = None
@@ -16,13 +26,18 @@ class DataController:
 
             data = {"name": row['Name'], "code": row['Symbol'], "exchange": row['Market'], "product": row['Industry'],
                     "listed_date": listing_date}
-            model = set_stock_model(data)
-            save_stock_company_info(model)
+            model = self.set_stock_model(data)
+            self.save_stock_company_info(model)
+        self.database_close()
 
     def save_stock_to_company(self):
-        result = get_stock_company_all()
+        # 전체 데이터 검색에 따른 가용시간으로 일단 폐기
+        return None
+
+        result = self.get_stock_company_all()
         error_stock = []
         for data in result:
+
             print(data)
             start = None
             if data.listed_date is not None:
@@ -44,17 +59,16 @@ class DataController:
                                                            "Low": row["Low"], "Close": row["Close"],
                                                            "Volume": row["Volume"], "stock_id": stock_id})
                 save_stock_company_info(stock_price_model)
-
+        self.database_close()
         print("error_stock", error_stock)
 
-    # 지정된 날짜 주식 검색, date가 None일 경우 오늘 날짜로 셋팅
-    def save_stock_from_date(self, date=None):
+    # 지정된 날짜 주식 검색, start가 None일 경우 오늘 날짜로 셋팅
+    def save_stock_from_date(self, code, start=None):
         pass
 
+    def get_company_name_code(self, company_name):
+        row_data = self.get_stock_company_from_name(company_name)
 
-if __name__ == '__main__':
-    dc = DataController()
-    # dc.save_stock_company_list()
-    dc.save_stock_to_company()
-    database_close()
+        df = self.get_stock(row_data[0].code)
 
+        return df

@@ -79,6 +79,7 @@ class Stock:
 
 
 if __name__ == '__main__':
+    pass
     # start = datetime.datetime(2015, 1, 1)
     # end = datetime.date(2019, 12, 31)
     # name = '거북선2호'
@@ -89,13 +90,14 @@ if __name__ == '__main__':
     # plt.show()
 
     # 단일 종목
-    df = fdr.DataReader('101380', '2020-03-01', '2020-03-18')
-    try:
-        df = fdr.DataReader('00104K')
-    except Exception as e:
-        print(e)
+    # df = fdr.DataReader('101380', '2020-03-01', '2020-03-18')
+    #
+    # try:
+    #     df = fdr.DataReader('00104K')
+    # except Exception as e:
+    #     print(e)
 
     # 코스피 지수
     # df = fdr.DataReader('KS11')
-    df['Close'].plot()
-    plt.show()
+    # df['Close'].plot()
+    # plt.show()
