@@ -5,6 +5,7 @@ from domain.db_class.stock_price import StockPrice
 from domain.db_class.stock import Stock as StockModel
 from controller.data_controller import DataController
 from domain.valid import Valid
+from domain.graph import Graph
 
 
 def get_kospi_list():
@@ -54,3 +55,7 @@ def get_company_from_name_to_data(company_name, start=None, end=None):
 
 def valid_date(str_date):
     return Valid().date_format(str_date)
+
+
+def get_graph_first_column(df, y, type="line"):
+    return Graph().first_column(df, y, type)

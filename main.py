@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from factory import get_company_from_name_to_data, valid_date
+from factory import get_company_from_name_to_data, valid_date, get_graph_first_column
 from matplotlib import pyplot as plt
+
 
 
 if __name__ == '__main__':
@@ -12,5 +13,7 @@ if __name__ == '__main__':
 
     df = get_company_from_name_to_data("GS홈쇼핑", start)
 
-    df['Close'].plot()
+    # df['Close'].plot()
+
+    get_graph_first_column(df, ['Close'])
     plt.show()
