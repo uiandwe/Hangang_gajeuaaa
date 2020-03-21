@@ -18,9 +18,14 @@ import matplotlib.pyplot as plt
 # TODO 1단 그래프
 # 캔들 그래프
 # 바 그래프
-# 선 그래프
 # TODO 2단 그래프
+# 캔들 그래프
+# 바 그래프
+# 선 그래프
 # TODO 3단 그래프
+# 캔들 그래프
+# 바 그래프
+# 선 그래프
 class Graph:
     graph_types = ["line", "bar", "candle"]
     def __init__(self):
@@ -32,6 +37,17 @@ class Graph:
 
         if type == "line":
             graph_data.plot(y=y, figsize=(20, 5))
+            graph_data.legend(loc=2)
+
+        elif type == "bar":
+            graph_data.plot.bar(y=y, rot=0, figsize=(20, 5))
+            graph_data.legend(loc=2)
+
+        else:
+            ax_main = plt.subplot2grid((5, 1), (0, 0), rowspan=3)
+            ax_main.legend(loc=2)
+            candlestick2_ohlc(ax_main, graph_data['Open'], graph_data['High'], graph_data['Low'], graph_data['Close'], width=0.6)
+
 
         plt.show()
 

@@ -8,6 +8,7 @@ if __name__ == '__main__':
     start = "2018"
     start = "201812"
     start = "20181231"
+    start = "2020"
 
     start = valid_date(start)
 
@@ -15,5 +16,10 @@ if __name__ == '__main__':
 
     # df['Close'].plot()
 
-    get_graph_first_column(df, ['Close'])
+    #line
+    # get_graph_first_column(df, ['Close'])
+    #bar
+    # get_graph_first_column(df, ['Close'], 'bar')
+    #candle
+    get_graph_first_column(df, [], 'candle')
     plt.show()
